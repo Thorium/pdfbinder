@@ -122,7 +122,10 @@ namespace PDFBinder
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-            inputListBox.Items.Remove(inputListBox.SelectedItem);
+            while(inputListBox.SelectedIndices.Count > 0)
+            {
+                inputListBox.Items.Remove(inputListBox.SelectedItem);
+            }
         }
 
         private void moveItemButton_Click(object sender, EventArgs e)
