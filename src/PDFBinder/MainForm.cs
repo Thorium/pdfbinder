@@ -38,22 +38,25 @@ namespace PDFBinder
             {
                 completeButton.Enabled = false;
                 helpLabel.Text = "Drop PDF-documents in the box above, or choose \"add document\" from the toolbar";
+                loadSaveBtn.Text = "Load";
             }
             else
             {
                 completeButton.Enabled = true;
                 helpLabel.Text = "Click the \"bind!\" button when you are done adding documents";
+                loadSaveBtn.Text = "Save";
             }
 
             if (inputListBox.SelectedIndex < 0)
             {
-                removeButton.Enabled = moveUpButton.Enabled = moveDownButton.Enabled = false;
+                removeButton.Enabled = moveUpButton.Enabled = moveDownButton.Enabled = move10down.Enabled = false;
             }
             else
             {
                 removeButton.Enabled = true;
                 moveUpButton.Enabled = (inputListBox.SelectedIndex > 0);
                 moveDownButton.Enabled = (inputListBox.SelectedIndex < inputListBox.Items.Count - 1);
+                move10down.Enabled = (inputListBox.SelectedIndex < inputListBox.Items.Count + 9);
             }
         }
 
@@ -124,18 +127,64 @@ namespace PDFBinder
 
         private void moveItemButton_Click(object sender, EventArgs e)
         {
-            object dataItem = inputListBox.SelectedItem;
-            int index = inputListBox.SelectedIndex;
 
-            if (sender == moveUpButton)
-                index--;
-            if (sender == moveDownButton)
-                index++;
+            var dataItems = inputListBox.SelectedItems;
+            var indexes = inputListBox.SelectedIndices;
+            var count = dataItems.Count;
 
-            inputListBox.Items.Remove(dataItem);
-            inputListBox.Items.Insert(index, dataItem);
+            for (int i = (sender == moveUpButton ? 0 : count-1);
+                         (sender == moveUpButton ? i < count : i >= 0);
+                         i = (sender == moveUpButton ? i+1 : i-1))
+            {
+                object dataItem = inputListBox.SelectedItems[i];
+                int index = inputListBox.SelectedIndices[i];
 
-            inputListBox.SelectedIndex = index;
+                if (sender == moveUpButton)
+                    index--;
+                if (sender == moveDownButton)
+                    index++;
+
+                if(index >= 0 && index < inputListBox.Items.Count)
+                {
+                    inputListBox.Items.Remove(dataItem);
+                    inputListBox.Items.Insert(index, dataItem);
+
+                    inputListBox.SelectedIndex = index;
+
+                }
+
+            }
+
+
+
+        }
+
+        private void move10down_Click(object sender, EventArgs e)
+        {
+            for(int i = 0; i<10; i++)
+            {
+                moveDownButton.PerformClick();
+            }
+        }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            var listContentFileName = "listconent.txt";
+            if(inputListBox.Items.Count < 2 && System.IO.File.Exists(listContentFileName))
+            {
+                var allLines = System.IO.File.ReadAllLines(listContentFileName);
+                inputListBox.Items.AddRange(allLines);
+            } else
+            {
+                var allLines = new List<string>();
+                
+                for(int i=0; i < inputListBox.Items.Count; i++)
+                {
+                    allLines.Add((string)inputListBox.Items[i]);
+                }
+                System.IO.File.WriteAllLines(listContentFileName, allLines);
+            }
+
         }
     }
 }

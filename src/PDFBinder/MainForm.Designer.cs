@@ -36,7 +36,11 @@ namespace PDFBinder
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.moveUpButton = new System.Windows.Forms.ToolStripButton();
             this.moveDownButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.move10down = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.loadSaveBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.completeButton = new System.Windows.Forms.ToolStripButton();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.addFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -48,12 +52,13 @@ namespace PDFBinder
             // inputListBox
             // 
             this.inputListBox.AllowDrop = true;
-            this.inputListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.inputListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.inputListBox.FormattingEnabled = true;
             this.inputListBox.Location = new System.Drawing.Point(4, 30);
             this.inputListBox.Name = "inputListBox";
+            this.inputListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.inputListBox.Size = new System.Drawing.Size(422, 147);
             this.inputListBox.TabIndex = 0;
             this.inputListBox.SelectedIndexChanged += new System.EventHandler(this.inputListBox_SelectedIndexChanged);
@@ -68,7 +73,11 @@ namespace PDFBinder
             this.toolStripSeparator1,
             this.moveUpButton,
             this.moveDownButton,
+            this.toolStripSeparator3,
+            this.move10down,
             this.toolStripSeparator2,
+            this.loadSaveBtn,
+            this.toolStripSeparator4,
             this.completeButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -81,7 +90,7 @@ namespace PDFBinder
             this.addFileButton.Image = ((System.Drawing.Image)(resources.GetObject("addFileButton.Image")));
             this.addFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addFileButton.Name = "addFileButton";
-            this.addFileButton.Size = new System.Drawing.Size(75, 22);
+            this.addFileButton.Size = new System.Drawing.Size(77, 22);
             this.addFileButton.Text = "Add file...";
             this.addFileButton.Click += new System.EventHandler(this.addFileButton_Click);
             // 
@@ -123,10 +132,40 @@ namespace PDFBinder
             this.moveDownButton.Text = "toolStripButton3";
             this.moveDownButton.Click += new System.EventHandler(this.moveItemButton_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // move10down
+            // 
+            this.move10down.Enabled = false;
+            this.move10down.Image = ((System.Drawing.Image)(resources.GetObject("move10down.Image")));
+            this.move10down.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.move10down.Name = "move10down";
+            this.move10down.Size = new System.Drawing.Size(45, 22);
+            this.move10down.Text = "x10";
+            this.move10down.Click += new System.EventHandler(this.move10down_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // loadSaveBtn
+            // 
+            this.loadSaveBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.loadSaveBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.loadSaveBtn.Name = "loadSaveBtn";
+            this.loadSaveBtn.Size = new System.Drawing.Size(37, 22);
+            this.loadSaveBtn.Text = "Load";
+            this.loadSaveBtn.ToolTipText = "saveBtn";
+            this.loadSaveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // completeButton
             // 
@@ -134,7 +173,7 @@ namespace PDFBinder
             this.completeButton.Image = ((System.Drawing.Image)(resources.GetObject("completeButton.Image")));
             this.completeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.completeButton.Name = "completeButton";
-            this.completeButton.Size = new System.Drawing.Size(51, 22);
+            this.completeButton.Size = new System.Drawing.Size(54, 22);
             this.completeButton.Text = "Bind!";
             this.completeButton.Click += new System.EventHandler(this.combineButton_Click);
             // 
@@ -151,8 +190,8 @@ namespace PDFBinder
             // 
             // progressBar
             // 
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(4, 183);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(422, 16);
@@ -161,8 +200,8 @@ namespace PDFBinder
             // 
             // helpLabel
             // 
-            this.helpLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.helpLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.helpLabel.AutoSize = true;
             this.helpLabel.Location = new System.Drawing.Point(4, 183);
             this.helpLabel.Name = "helpLabel";
@@ -205,6 +244,10 @@ namespace PDFBinder
         private System.Windows.Forms.OpenFileDialog addFileDialog;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label helpLabel;
+        private System.Windows.Forms.ToolStripButton move10down;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton loadSaveBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
 
